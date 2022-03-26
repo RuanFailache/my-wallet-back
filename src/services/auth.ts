@@ -1,8 +1,7 @@
-import { LogOut, UserAtSignIn, UserAtSignUp } from '@my-wallet/types'
 import { PrismaClient } from '@prisma/client'
+import { ERROR_MESSAGE, ResponseError } from '@my-wallet/utils'
 import { IAdapterBcrypt, IAdapterUuid } from '@my-wallet/adapters'
-import { ERROR_MESSAGE } from '@my-wallet/utils'
-import ResponseError from '@my-wallet/utils/errors/ResponseError'
+import { LogOut, UserAtSignIn, UserAtSignUp } from '@my-wallet/types'
 
 const prisma = new PrismaClient()
 const uuid = new IAdapterUuid('v4')
