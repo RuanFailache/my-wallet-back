@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import { ERROR_MESSAGE, ResponseError } from '@my-wallet/utils'
+import { ERROR_MESSAGE } from '@my-wallet/utils'
+import { ResponseError } from '@my-wallet/utils/errors'
 import * as transactionSchemas from '@my-wallet/schemas/transaction'
 import * as transactionServices from '@my-wallet/services/transaction'
 

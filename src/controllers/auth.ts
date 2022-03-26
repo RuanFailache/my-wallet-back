@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
+import { ERROR_MESSAGE } from '@my-wallet/utils'
 import * as authSchemas from '@my-wallet/schemas/auth'
 import * as authService from '@my-wallet/services/auth'
-import { ERROR_MESSAGE, ResponseError } from '@my-wallet/utils'
+import { ResponseError } from '@my-wallet/utils/errors'
 
 export async function signUp(req: Request, res: Response) {
   const isValidParams = authSchemas.signUp.validate(req.body)
