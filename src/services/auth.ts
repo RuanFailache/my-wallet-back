@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { ERROR_MESSAGE, ResponseError } from '@my-wallet/utils'
 import { IAdapterBcrypt, IAdapterUuid } from '@my-wallet/adapters'
-import { LogOut, UserAtSignIn, UserAtSignUp } from '@my-wallet/types'
+import { LogOut, UserAtSignIn, UserAtSignUp } from '@my-wallet/types/auth'
 
 const prisma = new PrismaClient()
 const uuid = new IAdapterUuid('v4')
@@ -62,8 +62,9 @@ export async function createUser({ password, email, username }: UserAtSignUp) {
   return {
     accessToken,
     user: {
-      username: user.username,
+      id: user.id,
       email: user.email,
+      username: user.username,
     },
   }
 }
@@ -87,8 +88,9 @@ export async function validateUser({ email, password }: UserAtSignIn) {
   return {
     accessToken,
     user: {
-      username: user.username,
+      id: user.id,
       email: user.email,
+      username: user.username,
     },
   }
 }

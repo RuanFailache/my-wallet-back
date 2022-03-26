@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
-import * as authService from '@my-wallet/services'
+import * as authSchemas from '@my-wallet/schemas/auth'
+import * as authService from '@my-wallet/services/auth'
 import { ERROR_MESSAGE, ResponseError } from '@my-wallet/utils'
-import { logOutSchema, signInSchema, signUpSchema } from '@my-wallet/schemas'
 
 export async function signUp(req: Request, res: Response) {
-  const isValidParams = signUpSchema.validate(req.body)
+  const isValidParams = authSchemas.signUp.validate(req.body)
 
   try {
     if (isValidParams.error) {
@@ -24,7 +24,7 @@ export async function signUp(req: Request, res: Response) {
 }
 
 export async function signIn(req: Request, res: Response) {
-  const isValidParams = signInSchema.validate(req.body)
+  const isValidParams = authSchemas.signIn.validate(req.body)
 
   try {
     if (isValidParams.error) {
@@ -44,7 +44,7 @@ export async function signIn(req: Request, res: Response) {
 }
 
 export async function logOut(req: Request, res: Response) {
-  const isValidParams = logOutSchema.validate(req.body)
+  const isValidParams = authSchemas.logOut.validate(req.body)
 
   try {
     if (isValidParams.error) {
