@@ -30,7 +30,6 @@ export async function createUser({ password, email, username }: UserAtSignUp) {
   return {
     accessToken,
     user: {
-      id: user.id,
       email: user.email,
       username: user.username,
     },

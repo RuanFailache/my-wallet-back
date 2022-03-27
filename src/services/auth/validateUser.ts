@@ -31,7 +31,6 @@ export async function validateUser({ email, password }: UserAtSignIn) {
   return {
     accessToken,
     user: {
-      id: user.id,
       email: user.email,
       username: user.username,
     },
