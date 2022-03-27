@@ -15,13 +15,18 @@ export async function getWalletTotalAmount(params: WalletTotalAmount) {
   })
 
   return allUserTransactions.reduce((prev, curr) => {
-    switch (curr.type) {
-      case 'OUTPUT':
-        return prev - curr.value
-      case 'INPUT':
-        return prev + curr.value
-      default:
-        throw new ResponseError(ERROR_MESSAGE.INVALID_TRANSACTION, 400)
+    const transactionTypes = {
+      OUTPUT: prev - curr.value,
+      INPUT: prev + curr.value,
     }
+
+    type TransactionsType = 'INPUT' | 'OUTPUT'
+    const transaction = transactionTypes[curr.type as TransactionsType]
+
+    if (transaction === undefined) {
+      throw new ResponseError(ERROR_MESSAGE.INVALID_TRANSACTION, 400)
+    }
+
+    return transaction
   }, INITIAL_TOTAL_AMOUNT)
 }
