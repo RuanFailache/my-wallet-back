@@ -14,6 +14,11 @@ const bcrypt = new IAdapterBcrypt()
 
 export async function validateUser({ email, password }: UserAtSignIn) {
   const user = await getUserByEmail(email)
+
+  if (!user) {
+    throw new ResponseError(ERROR_MESSAGE.SIGN_IN, 404)
+  }
+
   const isValidPassword = bcrypt.compareHash(password, user.password)
 
   if (!isValidPassword) {

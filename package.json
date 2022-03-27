@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
     "dev": "nodemon -r tsconfig-paths/register src/server.ts"
   },
   "keywords": [],
@@ -26,6 +28,7 @@
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^3.14.1",
+    "tsconfig-paths-jest": "^0.0.1",
     "typescript": "^4.6.3"
   },
   "dependencies": {
