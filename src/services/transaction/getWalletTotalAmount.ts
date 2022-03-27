@@ -1,49 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import { ERROR_MESSAGE } from '@my-wallet/utils'
 import { ResponseError } from '@my-wallet/utils/errors'
-
-import {
-  EditTransactionParams,
-  NewTransaction,
-  DeleteTransactionParams,
-  WalletTotalAmount,
-} from '@my-wallet/types/transaction'
+import { WalletTotalAmount } from '@my-wallet/types/transaction'
 
 const prisma = new PrismaClient()
-
-export async function createTransaction(params: NewTransaction) {
-  await prisma.transaction.create({
-    data: {
-      ...params,
-    },
-  })
-}
-
-export async function editTransaction({
-  value,
-  description,
-  transactionId,
-}: EditTransactionParams) {
-  await prisma.transaction.update({
-    where: {
-      id: transactionId,
-    },
-    data: {
-      value,
-      description,
-    },
-  })
-}
-
-export async function deleteTransaction({
-  transactionId,
-}: DeleteTransactionParams) {
-  await prisma.transaction.delete({
-    where: {
-      id: transactionId,
-    },
-  })
-}
 
 export async function getWalletTotalAmount(params: WalletTotalAmount) {
   const INITIAL_TOTAL_AMOUNT = 0
