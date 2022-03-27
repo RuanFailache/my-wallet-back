@@ -5,6 +5,8 @@ import { WalletTotalAmount } from '@my-wallet/types/transaction'
 
 const prisma = new PrismaClient()
 
+type TransactionsType = 'INPUT' | 'OUTPUT'
+
 export async function getWalletTotalAmount(params: WalletTotalAmount) {
   const INITIAL_TOTAL_AMOUNT = 0
 
@@ -20,7 +22,6 @@ export async function getWalletTotalAmount(params: WalletTotalAmount) {
       INPUT: prev + curr.value,
     }
 
-    type TransactionsType = 'INPUT' | 'OUTPUT'
     const transaction = transactionTypes[curr.type as TransactionsType]
 
     if (transaction === undefined) {
