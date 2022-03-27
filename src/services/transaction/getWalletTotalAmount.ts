@@ -1,11 +1,8 @@
-import { PrismaClient, Transaction } from '@prisma/client'
-import { ERROR_MESSAGE } from '@my-wallet/utils'
-import { ResponseError } from '@my-wallet/utils/errors'
+import { PrismaClient } from '@prisma/client'
+import { calculateReduceForTotalAmount } from './utils'
 import { WalletTotalAmount } from '@my-wallet/types/transaction'
 
 const prisma = new PrismaClient()
-
-type TransactionsType = 'INPUT' | 'OUTPUT'
 
 export async function getWalletTotalAmount(params: WalletTotalAmount) {
   const INITIAL_TOTAL_AMOUNT = 0
@@ -20,19 +17,4 @@ export async function getWalletTotalAmount(params: WalletTotalAmount) {
     calculateReduceForTotalAmount,
     INITIAL_TOTAL_AMOUNT
   )
-}
-
-function calculateReduceForTotalAmount(prev: number, curr: Transaction) {
-  const transactionTypes = {
-    OUTPUT: prev - curr.value,
-    INPUT: prev + curr.value,
-  }
-
-  const transaction = transactionTypes[curr.type as TransactionsType]
-
-  if (transaction === undefined) {
-    throw new ResponseError(ERROR_MESSAGE.INVALID_TRANSACTION, 400)
-  }
-
-  return transaction
 }
