@@ -1,5 +1,6 @@
-import { ERROR_MESSAGE, ResponseError } from '@my-wallet/utils'
 import { PrismaClient } from '@prisma/client'
+import { ERROR_MESSAGE } from '@my-wallet/utils'
+import { ResponseError } from '@my-wallet/utils/errors'
 import { NextFunction, Request, Response } from 'express'
 
 const prisma = new PrismaClient()
