@@ -1,1 +1,1 @@
-export * from './calculateReduceForTotalAmount'
+export * from './calculateTotalAmount'
