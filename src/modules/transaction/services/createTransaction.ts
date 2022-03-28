@@ -1,4 +1,4 @@
-import ITransactionRepository from '@my-wallet/repositories/prisma/transaction'
+import { ITransactionRepository } from '@my-wallet/repositories/prisma'
 
 import { NewTransaction } from '../types'
 

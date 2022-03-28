@@ -1,6 +1,6 @@
 import { IAdapterUuid } from '@my-wallet/adapters'
 
-import ISessionRepository from '@my-wallet/repositories/prisma/session'
+import { ISessionRepository } from '@my-wallet/repositories/prisma'
 
 const uuid = new IAdapterUuid('v4')
 const sessionRepository = new ISessionRepository()

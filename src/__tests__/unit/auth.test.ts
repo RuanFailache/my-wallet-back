@@ -5,8 +5,10 @@ import { ResponseError } from '@my-wallet/utils/errors'
 import * as authUtils from '@my-wallet/modules/auth/utils'
 import * as authServices from '@my-wallet/modules/auth/services'
 
-import IUserRepository from '@my-wallet/repositories/prisma/user'
-import ISessionRepository from '@my-wallet/repositories/prisma/session'
+import {
+  IUserRepository,
+  ISessionRepository,
+} from '@my-wallet/repositories/prisma'
 
 const prisma = new PrismaClient()
 

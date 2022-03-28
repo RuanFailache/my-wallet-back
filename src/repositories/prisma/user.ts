@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 import { UserAtSignUp } from '@my-wallet/modules/auth/types'
 
-export default class IUserRepository {
+export class IUserRepository {
   private db
 
   constructor() {

@@ -4,7 +4,7 @@ import {
 } from '@my-wallet/modules/transaction/types'
 import { PrismaClient } from '@prisma/client'
 
-export default class ITransactionRepository {
+export class ITransactionRepository {
   private db
 
   constructor() {

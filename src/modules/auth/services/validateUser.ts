@@ -1,4 +1,6 @@
 import { UserAtSignIn } from '../types'
+import { createSession } from '../utils'
+
 import { deleteSessionByAccessToken } from './deleteSessionByAccessToken'
 
 import { ERROR_MESSAGE } from '@my-wallet/utils'
@@ -6,10 +8,10 @@ import { ResponseError } from '@my-wallet/utils/errors'
 
 import { IAdapterBcrypt } from '@my-wallet/adapters'
 
-import IUserRepository from '@my-wallet/repositories/prisma/user'
-
-import { createSession } from '../utils'
-import ISessionRepository from '@my-wallet/repositories/prisma/session'
+import {
+  IUserRepository,
+  ISessionRepository,
+} from '@my-wallet/repositories/prisma'
 
 const bcrypt = new IAdapterBcrypt()
 const userRepository = new IUserRepository()

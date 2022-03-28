@@ -1,7 +1,7 @@
 import { WalletTotalAmount } from '../types'
 import { calculateTotalAmount } from '../utils'
 
-import ITransactionRepository from '@my-wallet/repositories/prisma/transaction'
+import { ITransactionRepository } from '@my-wallet/repositories/prisma'
 
 const transactionRepository = new ITransactionRepository()
 

@@ -1,6 +1,6 @@
 import { LogOut } from '../types'
 
-import ISessionRepository from '@my-wallet/repositories/prisma/session'
+import { ISessionRepository } from '@my-wallet/repositories/prisma'
 
 const sessionRepository = new ISessionRepository()
 
