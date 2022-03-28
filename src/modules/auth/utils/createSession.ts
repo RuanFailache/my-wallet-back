@@ -1,9 +1,9 @@
 import { IAdapterUuid } from '@my-wallet/adapters'
 
-import { ISessionRepository } from '@my-wallet/repositories/prisma'
+import { SessionRepository } from '@my-wallet/repositories/prisma'
 
 const uuid = new IAdapterUuid('v4')
-const sessionRepository = new ISessionRepository()
+const sessionRepository = new SessionRepository()
 
 export async function createSession(userId: number) {
   const token = uuid.makeToken()

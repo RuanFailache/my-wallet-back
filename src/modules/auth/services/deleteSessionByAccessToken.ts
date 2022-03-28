@@ -1,8 +1,8 @@
 import { LogOut } from '../types'
 
-import { ISessionRepository } from '@my-wallet/repositories/prisma'
+import { SessionRepository } from '@my-wallet/repositories/prisma'
 
-const sessionRepository = new ISessionRepository()
+const sessionRepository = new SessionRepository()
 
 export async function deleteSessionByAccessToken({ accessToken }: LogOut) {
   await sessionRepository.deleteSessionWithToken(accessToken)

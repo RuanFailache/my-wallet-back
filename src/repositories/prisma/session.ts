@@ -1,6 +1,8 @@
+import { ISessionRepository } from '../base'
+
 import { PrismaClient } from '@prisma/client'
 
-export class ISessionRepository {
+export class SessionRepository implements ISessionRepository {
   private db
 
   constructor() {

@@ -9,13 +9,13 @@ import { ResponseError } from '@my-wallet/utils/errors'
 import { IAdapterBcrypt } from '@my-wallet/adapters'
 
 import {
-  IUserRepository,
-  ISessionRepository,
+  UserRepository,
+  SessionRepository,
 } from '@my-wallet/repositories/prisma'
 
 const bcrypt = new IAdapterBcrypt()
-const userRepository = new IUserRepository()
-const sessionRepository = new ISessionRepository()
+const userRepository = new UserRepository()
+const sessionRepository = new SessionRepository()
 
 export async function validateUser({ email, password }: UserAtSignIn) {
   const user = await userRepository.findUserWithEmail(email)

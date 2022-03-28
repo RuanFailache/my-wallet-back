@@ -3,9 +3,9 @@ import { NextFunction, Request, Response } from 'express'
 import { ERROR_MESSAGE } from '@my-wallet/utils'
 import { ResponseError } from '@my-wallet/utils/errors'
 
-import { ISessionRepository } from '@my-wallet/repositories/prisma'
+import { SessionRepository } from '@my-wallet/repositories/prisma'
 
-const sessionRepository = new ISessionRepository()
+const sessionRepository = new SessionRepository()
 
 export default async function protectedRoute(
   req: Request,

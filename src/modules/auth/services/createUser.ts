@@ -6,10 +6,10 @@ import { ResponseError } from '@my-wallet/utils/errors'
 
 import { IAdapterBcrypt } from '@my-wallet/adapters'
 
-import { IUserRepository } from '@my-wallet/repositories/prisma'
+import { UserRepository } from '@my-wallet/repositories/prisma'
 
 const bcrypt = new IAdapterBcrypt()
-const userRepository = new IUserRepository()
+const userRepository = new UserRepository()
 
 export async function createUser({ password, email, username }: UserAtSignUp) {
   const userExists = await userRepository.findUserWithEmail(email)

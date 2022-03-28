@@ -6,28 +6,19 @@ import * as authUtils from '@my-wallet/modules/auth/utils'
 import * as authServices from '@my-wallet/modules/auth/services'
 
 import {
-  IUserRepository,
-  ISessionRepository,
+  UserRepository,
+  SessionRepository,
 } from '@my-wallet/repositories/prisma'
 
 const prisma = new PrismaClient()
 
-const userRepository = new IUserRepository()
-const sessionRepository = new ISessionRepository()
+const userRepository = new UserRepository()
+const sessionRepository = new SessionRepository()
 
 const BASE_PARAMS = {
   email: 'user@test.com',
   password: 'password',
   username: 'user',
-}
-
-async function createUserToTest() {
-  return prisma.user.create({
-    data: {
-      ...BASE_PARAMS,
-      email: 'user2@test.com',
-    },
-  })
 }
 
 async function cleanDatabaseToTest() {
@@ -72,8 +63,13 @@ describe('Test for auth services and utils', () => {
     })
 
     test('Should create a new session', async () => {
-      const user = await createUserToTest()
+      const user = await userRepository.createUser({
+        ...BASE_PARAMS,
+        email: 'user2@test.com',
+      })
+
       const accessToken = await authUtils.createSession(user.id)
+
       expect(accessToken).toBeTruthy()
     })
 

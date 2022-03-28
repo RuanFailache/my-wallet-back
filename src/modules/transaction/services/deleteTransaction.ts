@@ -1,8 +1,8 @@
-import { ITransactionRepository } from '@my-wallet/repositories/prisma'
+import { TransactionRepository } from '@my-wallet/repositories/prisma'
 
 import { DeleteTransactionParams } from '../types'
 
-const transactionRepository = new ITransactionRepository()
+const transactionRepository = new TransactionRepository()
 
 export async function deleteTransaction({
   transactionId,

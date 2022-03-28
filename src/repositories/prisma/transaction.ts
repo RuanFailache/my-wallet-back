@@ -1,8 +1,9 @@
+import { ITransactionRepository } from '../base/transaction'
 import { NewTransaction } from '@my-wallet/modules/transaction/types'
 
 import { PrismaClient } from '@prisma/client'
 
-export class ITransactionRepository {
+export class TransactionRepository implements ITransactionRepository {
   private db
 
   constructor() {
