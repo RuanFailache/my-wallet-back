@@ -1,7 +1,5 @@
-import {
-  DeleteTransactionParams,
-  NewTransaction,
-} from '@my-wallet/modules/transaction/types'
+import { NewTransaction } from '@my-wallet/modules/transaction/types'
+
 import { PrismaClient } from '@prisma/client'
 
 export class ITransactionRepository {
