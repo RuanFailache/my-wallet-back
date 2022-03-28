@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { LogOut } from '@my-wallet/types/auth'
+
+import { LogOut } from '../types'
 
 const prisma = new PrismaClient()
 

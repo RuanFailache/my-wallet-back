@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { EditTransactionParams } from '@my-wallet/types/transaction'
+
+import { EditTransactionParams } from '../types'
 
 const prisma = new PrismaClient()
 

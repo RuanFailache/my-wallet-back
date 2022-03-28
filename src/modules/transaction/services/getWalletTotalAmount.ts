@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
-import { calculateTotalAmount } from './utils'
-import { WalletTotalAmount } from '@my-wallet/types/transaction'
+
+import { WalletTotalAmount } from '../types'
+import { calculateTotalAmount } from '../utils'
 
 const prisma = new PrismaClient()
 

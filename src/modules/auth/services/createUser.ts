@@ -1,8 +1,10 @@
 import { PrismaClient } from '@prisma/client'
+
+import { UserAtSignUp } from '../types'
+import { createSession, getUserByEmail } from '../utils'
+
 import { ERROR_MESSAGE } from '@my-wallet/utils'
 import { IAdapterBcrypt } from '@my-wallet/adapters'
-import { UserAtSignUp } from '@my-wallet/types/auth'
-import { createSession, getUserByEmail } from './utils'
 import { ResponseError } from '@my-wallet/utils/errors'
 
 const prisma = new PrismaClient()

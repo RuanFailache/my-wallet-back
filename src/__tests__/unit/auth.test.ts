@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client'
-import * as authServices from '@my-wallet/services/auth'
-import * as authUtils from '@my-wallet/services/auth/utils'
+
 import { ResponseError } from '@my-wallet/utils/errors'
+import * as authUtils from '@my-wallet/modules/auth/utils'
+import * as authServices from '@my-wallet/modules/auth/services'
 
 const prisma = new PrismaClient()
 

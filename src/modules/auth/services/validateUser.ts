@@ -1,14 +1,15 @@
+import { UserAtSignIn } from '../types'
+import { deleteSessionByAccessToken } from './deleteSessionByAccessToken'
+
 import { ERROR_MESSAGE } from '@my-wallet/utils'
-import { UserAtSignIn } from '@my-wallet/types/auth'
 import { IAdapterBcrypt } from '@my-wallet/adapters'
 import { ResponseError } from '@my-wallet/utils/errors'
-import { deleteSessionByAccessToken } from './deleteSessionByAccessToken'
 
 import {
   checkIfExistsSessionByUserId,
   createSession,
   getUserByEmail,
-} from './utils'
+} from '../utils'
 
 const bcrypt = new IAdapterBcrypt()
 

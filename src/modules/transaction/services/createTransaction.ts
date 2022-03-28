@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { NewTransaction } from '@my-wallet/types/transaction'
+
+import { NewTransaction } from '../types'
 
 const prisma = new PrismaClient()
 

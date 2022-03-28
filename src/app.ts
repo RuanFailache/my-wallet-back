@@ -1,10 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 
-import AuthRouter from '@my-wallet/routers/auth'
-import TransactionRouter from '@my-wallet/routers/transaction'
-
-import protectedRoute from './middlewares/auth'
+import BaseRouter from './router'
 
 const app = express()
 
@@ -12,8 +9,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// Routes
-app.use('/auth', AuthRouter)
-app.use('/transaction', protectedRoute, TransactionRouter)
+// Router
+app.use('/', BaseRouter)
 
 export default app

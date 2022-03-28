@@ -1,7 +1,9 @@
 import { Request, Response } from 'express'
+
+import * as authSchemas from '../schemas'
+import * as authService from '../services'
+
 import { ERROR_MESSAGE } from '@my-wallet/utils'
-import * as authSchemas from '@my-wallet/schemas/auth'
-import * as authService from '@my-wallet/services/auth'
 import { ResponseError } from '@my-wallet/utils/errors'
 
 export async function logOut(req: Request, res: Response) {

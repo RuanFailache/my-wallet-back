@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { DeleteTransactionParams } from '@my-wallet/types/transaction'
+
+import { DeleteTransactionParams } from '../types'
 
 const prisma = new PrismaClient()
 

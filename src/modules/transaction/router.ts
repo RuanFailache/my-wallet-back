@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import * as transactionControllers from '@my-wallet/controllers/transaction'
+
+import * as transactionControllers from './controllers'
 
 const router = Router()
 
