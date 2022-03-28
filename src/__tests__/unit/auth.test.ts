@@ -1,10 +1,17 @@
 import { PrismaClient } from '@prisma/client'
 
 import { ResponseError } from '@my-wallet/utils/errors'
+
 import * as authUtils from '@my-wallet/modules/auth/utils'
 import * as authServices from '@my-wallet/modules/auth/services'
 
+import IUserRepository from '@my-wallet/repositories/prisma/user'
+import ISessionRepository from '@my-wallet/repositories/prisma/session'
+
 const prisma = new PrismaClient()
+
+const userRepository = new IUserRepository()
+const sessionRepository = new ISessionRepository()
 
 const BASE_PARAMS = {
   email: 'user@test.com',
@@ -21,20 +28,20 @@ async function createUserToTest() {
   })
 }
 
+async function cleanDatabaseToTest() {
+  await prisma.transaction.deleteMany()
+  await prisma.session.deleteMany()
+  await prisma.user.deleteMany()
+}
+
 describe('Test for auth services and utils', () => {
   beforeAll(async () => {
-    // Connect and delete all data from database
     await prisma.$connect()
-    await prisma.transaction.deleteMany()
-    await prisma.session.deleteMany()
-    await prisma.user.deleteMany()
+    await cleanDatabaseToTest()
   })
 
   afterAll(async () => {
-    // Delete all data and desconnect from database
-    await prisma.transaction.deleteMany()
-    await prisma.session.deleteMany()
-    await prisma.user.deleteMany()
+    await cleanDatabaseToTest()
     await prisma.$disconnect()
   })
 
@@ -58,7 +65,7 @@ describe('Test for auth services and utils', () => {
 
   describe('Check if user has an active session', () => {
     test("Shouldn't find an active session", async () => {
-      const session = await authUtils.checkIfExistsSessionByUserId(0)
+      const session = await sessionRepository.findSessionWithUserId(0)
       expect(session).toBeNull()
     })
 
@@ -69,13 +76,14 @@ describe('Test for auth services and utils', () => {
     })
 
     test('Should find an active session', async () => {
-      const user = await authUtils.getUserByEmail('user2@test.com')
+      const user = await userRepository.findUserWithEmail('user2@test.com')
 
       if (!user) {
         fail('Should find a user, but the util failed at the service')
       }
 
-      const session = await authUtils.checkIfExistsSessionByUserId(user.id)
+      const session = await sessionRepository.findSessionWithUserId(user.id)
+
       expect(session).toBeDefined()
     })
   })
@@ -109,13 +117,14 @@ describe('Test for auth services and utils', () => {
   describe('User log out service', () => {
     test('Should log out successfully', async () => {
       await authServices.deleteSessionByAccessToken({ accessToken })
-      const user = await authUtils.getUserByEmail(BASE_PARAMS.email)
+
+      const user = await userRepository.findUserWithEmail(BASE_PARAMS.email)
 
       if (!user) {
         fail('Should exists an user with the base email')
       }
 
-      const session = await authUtils.checkIfExistsSessionByUserId(user.id)
+      const session = await sessionRepository.findSessionWithUserId(user.id)
 
       expect(session).toBeNull()
     })

@@ -1,17 +1,18 @@
-import { PrismaClient } from '@prisma/client'
-
 import { UserAtSignUp } from '../types'
-import { createSession, getUserByEmail } from '../utils'
+import { createSession } from '../utils'
 
 import { ERROR_MESSAGE } from '@my-wallet/utils'
-import { IAdapterBcrypt } from '@my-wallet/adapters'
 import { ResponseError } from '@my-wallet/utils/errors'
 
-const prisma = new PrismaClient()
+import { IAdapterBcrypt } from '@my-wallet/adapters'
+
+import IUserRepository from '@my-wallet/repositories/prisma/user'
+
 const bcrypt = new IAdapterBcrypt()
+const userRepository = new IUserRepository()
 
 export async function createUser({ password, email, username }: UserAtSignUp) {
-  const userExists = await getUserByEmail(email)
+  const userExists = await userRepository.findUserWithEmail(email)
 
   if (userExists) {
     throw new ResponseError(ERROR_MESSAGE.SIGN_UP, 400)
@@ -19,12 +20,10 @@ export async function createUser({ password, email, username }: UserAtSignUp) {
 
   const encryptedPassword = bcrypt.createHash(password)
 
-  const user = await prisma.user.create({
-    data: {
-      email,
-      username,
-      password: encryptedPassword,
-    },
+  const user = await userRepository.createUser({
+    email,
+    username,
+    password: encryptedPassword,
   })
 
   const accessToken = await createSession(user.id)

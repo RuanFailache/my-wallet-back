@@ -1,9 +1,11 @@
-import { PrismaClient } from '@prisma/client'
-import { ERROR_MESSAGE } from '@my-wallet/utils'
-import { ResponseError } from '@my-wallet/utils/errors'
 import { NextFunction, Request, Response } from 'express'
 
-const prisma = new PrismaClient()
+import { ERROR_MESSAGE } from '@my-wallet/utils'
+import { ResponseError } from '@my-wallet/utils/errors'
+
+import ISessionRepository from '@my-wallet/repositories/prisma/session'
+
+const sessionRepository = new ISessionRepository()
 
 export default async function protectedRoute(
   req: Request,
@@ -12,12 +14,13 @@ export default async function protectedRoute(
 ) {
   const auth = req.headers.authorization
   const token = auth?.replace('Bearer ', '')
+
+  if (!token) {
+    throw new ResponseError(ERROR_MESSAGE.INVALID_TOKEN, 403)
+  }
+
   try {
-    const session = await prisma.session.findUnique({
-      where: {
-        token,
-      },
-    })
+    const session = await sessionRepository.findSessionWithToken(token)
 
     if (!session) {
       throw new ResponseError(ERROR_MESSAGE.INVALID_TOKEN, 403)

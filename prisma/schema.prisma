@@ -19,6 +19,7 @@ model User {
   session Session?
   transactions Transaction[]
 
+  @@unique([email])
   @@map(name: "users")
 }
 

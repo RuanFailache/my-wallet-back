@@ -1,15 +1,11 @@
-import { PrismaClient } from '@prisma/client'
+import ITransactionRepository from '@my-wallet/repositories/prisma/transaction'
 
 import { DeleteTransactionParams } from '../types'
 
-const prisma = new PrismaClient()
+const transactionRepository = new ITransactionRepository()
 
 export async function deleteTransaction({
   transactionId,
 }: DeleteTransactionParams) {
-  await prisma.transaction.delete({
-    where: {
-      id: transactionId,
-    },
-  })
+  await transactionRepository.deleteTransactionWithTransactionId(transactionId)
 }

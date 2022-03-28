@@ -1,21 +1,15 @@
-import { PrismaClient } from '@prisma/client'
+import ITransactionRepository from '@my-wallet/repositories/prisma/transaction'
 
 import { EditTransactionParams } from '../types'
 
-const prisma = new PrismaClient()
+const transactionRepository = new ITransactionRepository()
 
 export async function editTransaction({
-  value,
-  description,
   transactionId,
+  ...params
 }: EditTransactionParams) {
-  await prisma.transaction.update({
-    where: {
-      id: transactionId,
-    },
-    data: {
-      value,
-      description,
-    },
-  })
+  await transactionRepository.updateTransactionWithTransactionId(
+    transactionId,
+    params
+  )
 }

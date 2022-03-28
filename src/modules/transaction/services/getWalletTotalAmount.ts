@@ -1,16 +1,13 @@
-import { PrismaClient } from '@prisma/client'
-
 import { WalletTotalAmount } from '../types'
 import { calculateTotalAmount } from '../utils'
 
-const prisma = new PrismaClient()
+import ITransactionRepository from '@my-wallet/repositories/prisma/transaction'
 
-export async function getWalletTotalAmount(params: WalletTotalAmount) {
-  const allUserTransactions = await prisma.transaction.findMany({
-    where: {
-      userId: params.userId,
-    },
-  })
+const transactionRepository = new ITransactionRepository()
 
+export async function getWalletTotalAmount({ userId }: WalletTotalAmount) {
+  const allUserTransactions = await transactionRepository.getAllTransactions(
+    userId
+  )
   return calculateTotalAmount(allUserTransactions)
 }
