@@ -16,7 +16,7 @@ export async function signIn(req: Request, res: Response) {
 
     const result = await authService.validateUser(req.body)
 
-    res.send(result)
+    res.status(201).send(result)
   } catch (err) {
     if (err instanceof ResponseError) {
       return res.status(err.status).send(err.message)
