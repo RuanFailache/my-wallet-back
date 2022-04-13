@@ -14,7 +14,14 @@ export async function editTransaction(req: Request, res: Response) {
       throw new ResponseError(ERROR_MESSAGE.EDIT_TRANSACTION, 400)
     }
 
-    await transactionServices.editTransaction(req.body)
+    if (!req.user) {
+      throw new ResponseError(ERROR_MESSAGE.EDIT_TRANSACTION, 403)
+    }
+
+    await transactionServices.editTransaction({
+      ...req.body,
+      userId: req.user.id,
+    })
 
     return res.status(204).send('Transaction successfuly edited!')
   } catch (err) {

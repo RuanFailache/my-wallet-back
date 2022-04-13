@@ -15,18 +15,20 @@ export default async function protectedRoute(
   const auth = req.headers.authorization
   const token = auth?.replace('Bearer ', '')
 
-  if (!token) {
-    throw new ResponseError(ERROR_MESSAGE.INVALID_TOKEN, 403)
-  }
-
   try {
+    if (!token) {
+      throw new ResponseError(ERROR_MESSAGE.INVALID_TOKEN, 403)
+    }
+
     const session = await sessionRepository.findSessionWithToken(token)
 
     if (!session) {
       throw new ResponseError(ERROR_MESSAGE.INVALID_TOKEN, 403)
     }
 
-    req.body.userId = session.userId
+    req.user = {
+      id: session.userId,
+    }
 
     return next()
   } catch (err) {

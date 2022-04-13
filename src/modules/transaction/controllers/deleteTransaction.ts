@@ -1,20 +1,19 @@
 import { Request, Response } from 'express'
 
-import * as transactionSchemas from '../schemas'
 import * as transactionServices from '../services'
 
 import { ERROR_MESSAGE } from '@my-wallet/utils'
 import { ResponseError } from '@my-wallet/utils/errors'
 
 export async function deleteTransaction(req: Request, res: Response) {
-  const isValidParams = transactionSchemas.deleteTransaction.validate(req.body)
-
   try {
-    if (isValidParams.error) {
+    if (!req.query.transactionId) {
       throw new ResponseError(ERROR_MESSAGE.DELETE_TRANSACTION, 400)
     }
 
-    await transactionServices.deleteTransaction(req.body)
+    await transactionServices.deleteTransaction({
+      transactionId: Number(req.query.transactionId),
+    })
 
     return res.status(204).send('Transaction successfuly created!')
   } catch (err) {

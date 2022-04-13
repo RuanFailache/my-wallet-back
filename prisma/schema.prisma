@@ -11,12 +11,13 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  username String
-  email String
-  password String
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String
+  password  String
+  createdAt DateTime @default(now())
 
-  session Session?
+  session      Session?
   transactions Transaction[]
 
   @@unique([email])
@@ -24,9 +25,10 @@ model User {
 }
 
 model Session {
-  id Int @id @default(autoincrement())
-  userId Int
-  token String
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  token     String
+  createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
 
@@ -35,11 +37,12 @@ model Session {
 }
 
 model Transaction {
-  id Int @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   description String
-  value Int
-  type String
-  userId Int
+  value       Int
+  type        String
+  userId      Int
+  createdAt   DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
 

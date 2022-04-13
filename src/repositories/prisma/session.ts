@@ -34,10 +34,10 @@ export class SessionRepository implements ISessionRepository {
     })
   }
 
-  async deleteSessionWithToken(token: string) {
+  async deleteSessionWithUserId(userId: number) {
     await this.db.session.delete({
       where: {
-        token,
+        userId,
       },
     })
   }

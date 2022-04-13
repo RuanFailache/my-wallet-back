@@ -7,5 +7,5 @@ export abstract class ISessionRepository {
 
   abstract findSessionWithToken(token: string): Promise<Session | null>
 
-  abstract deleteSessionWithToken(token: string): Promise<void>
+  abstract deleteSessionWithUserId(userId: number): Promise<void>
 }

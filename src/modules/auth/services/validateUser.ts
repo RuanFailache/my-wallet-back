@@ -1,7 +1,7 @@
 import { UserAtSignIn } from '../types'
 import { createSession } from '../utils'
 
-import { deleteSessionByAccessToken } from './deleteSessionByAccessToken'
+import { deleteSessionByUserId } from './deleteSessionByUserId'
 
 import { ERROR_MESSAGE } from '@my-wallet/utils'
 import { ResponseError } from '@my-wallet/utils/errors'
@@ -33,7 +33,7 @@ export async function validateUser({ email, password }: UserAtSignIn) {
   const session = await sessionRepository.findSessionWithUserId(user.id)
 
   if (session) {
-    await deleteSessionByAccessToken({ accessToken: session.token })
+    await deleteSessionByUserId({ userId: session.userId })
   }
 
   const accessToken = await createSession(user.id)

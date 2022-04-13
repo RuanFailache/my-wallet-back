@@ -14,7 +14,3 @@ export interface NewTransaction {
   description: string
   userId: number
 }
-
-export interface WalletTotalAmount {
-  userId: number
-}

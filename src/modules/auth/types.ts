@@ -10,5 +10,5 @@ export interface UserAtSignIn {
 }
 
 export interface LogOut {
-  accessToken: string
+  userId: number
 }

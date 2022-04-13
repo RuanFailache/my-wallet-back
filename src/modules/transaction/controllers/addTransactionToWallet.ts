@@ -14,7 +14,14 @@ export async function addTransactionToWallet(req: Request, res: Response) {
       throw new ResponseError(ERROR_MESSAGE.CREATE_TRANSACTION, 400)
     }
 
-    await transactionServices.createTransaction(req.body)
+    if (!req.user) {
+      throw new ResponseError(ERROR_MESSAGE.CREATE_TRANSACTION, 403)
+    }
+
+    await transactionServices.createTransaction({
+      ...req.body,
+      userId: req.user.id,
+    })
 
     return res.status(204).send('Transaction successfuly created!')
   } catch (err) {

@@ -10,7 +10,3 @@ export const signIn = Joi.object().keys({
   email: Joi.string().required(),
   password: Joi.string().required(),
 })
-
-export const logOut = Joi.object().keys({
-  accessToken: Joi.string().required(),
-})

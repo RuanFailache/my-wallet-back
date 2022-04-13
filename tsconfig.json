@@ -8,6 +8,7 @@
     "baseUrl": "./",
     "paths": {
       "@my-wallet/*": ["./src/*"]
-    }
+    },
+    "typeRoots": ["./src/@types"]
   }
 }
